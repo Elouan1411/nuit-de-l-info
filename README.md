@@ -15,7 +15,7 @@ For this second participation, we had gained much more experience and technical 
 The concept: a duality between the hell of Windows 10 (planned obsolescence) and the Linux paradise (sustainable alternative).
 
 -   📂 **Source Code**: [See 2025 folder](./2025)
--   🔗 **Live Demo**: [nuit-info-2025.elouanboiteux.fr](https://nuit-info-2025.elouanboiteux.fr/)
+-   🔗 **Live Demo**: <a href="https://nuit-info-2025.elouanboiteux.fr/" target="_blank">nuit-info-2025.elouanboiteux.fr</a>
 
 ---
 
@@ -24,4 +24,4 @@ The concept: a duality between the hell of Windows 10 (planned obsolescence) and
 This was our very first participation! At the time, we were still beginners in JavaScript and had to learn on the fly throughout the night. Despite the challenge, we managed to produce an interactive site.
 
 -   📂 **Source Code**: [See 2024 folder](./2024)
--   🔗 **Live Demo**: [nuit-info-2024.elouanboiteux.fr](https://nuit-info-2024.elouanboiteux.fr/)
+-   🔗 **Live Demo**: <a href="https://nuit-info-2024.elouanboiteux.fr/" target="_blank">nuit-info-2024.elouanboiteux.fr</a>
