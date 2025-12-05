@@ -1,0 +1,117 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #E5E5E5; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#chat-container {
+    width: 100vw;
+    height: 100vh;
+    background: #ffffff;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.1), 0 10px 20px rgba(0,0,0,0.2); 
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-top: 1px solid #ccc; 
+}
+
+#chat-history {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #f9f9f9;
+}
+
+#chat-history::-webkit-scrollbar {
+    width: 10px;
+}
+#chat-history::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+#chat-history::-webkit-scrollbar-thumb {
+    background: #cdcdcd; 
+}
+#chat-history::-webkit-scrollbar-thumb:hover {
+    background: #a6a6a6; 
+}
+
+.message {
+    padding: 10px 15px;
+    border-radius: 0;
+    max-width: 85%;
+    font-size: 14px;
+    line-height: 1.4;
+    position: relative;
+}
+
+.user-message {
+    background-color: #0078D7; 
+    color: white;
+    align-self: flex-end;
+    text-align: right;
+    border: 1px solid #005a9e;
+}
+
+.bot-message {
+    background-color: #E6E6E6;
+    color: #000;
+    align-self: flex-start;
+    text-align: left;
+    border: 1px solid #d4d4d4;
+}
+
+#input-area {
+    display: flex;
+    padding: 15px;
+    background-color: #f2f2f2;
+    border-top: 1px solid #d9d9d9;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 0; 
+    border: 2px solid #999; 
+    background-color: white;
+    outline: none;
+    font-family: 'Segoe UI', sans-serif;
+    transition: border-color 0.2s;
+}
+
+input:focus {
+    border-color: #0078D7; 
+}
+
+button {
+    background-color: #0078D7; 
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    margin-left: 10px;
+    border-radius: 0; 
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #005a9e; 
+}
+
+button:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+}

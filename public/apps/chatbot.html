@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/chatbot.css" />
+    <title>Assistant Windows</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 20px;
+        text-align: center;
+      }
+
+      button {
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="chat-container">
+      <div id="chat-history">
+        <div class="message bot-message">
+          Bonjour ! Comment puis-je t'aider ?
+        </div>
+      </div>
+      <div id="input-area">
+        <input
+          type="text"
+          id="user-input"
+          placeholder="Écrivez votre message..."
+        />
+        <button id="send-btn">Envoyer</button>
+      </div>
+    </div>
+
+    <script src="../js/chatbot.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assistant Linux</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../css/chatbot_linux.css" />
+  </head>
+  <body>
+    <div id="layout-container">
+      <div id="chat-history">
+        <div id="welcome-screen">
+          <div class="welcome-text">Comment puis-je vous aider ?</div>
+        </div>
+      </div>
+
+      <div id="input-area-container">
+        <div class="input-capsule">
+          <input
+            type="text"
+            id="user-input"
+            placeholder="Message LinAssistant..."
+            autocomplete="off"
+          />
+          <button id="send-btn" class="send-icon">
+            <i class="fa-solid fa-arrow-up"></i>
+          </button>
+        </div>
+        <div class="footer-disclaimer">
+          L'assistant Linux peut faire des erreurs. Vérifiez les informations
+          importantes.
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/chatbot_linux.js" defer></script>
+  </body>
+</html>

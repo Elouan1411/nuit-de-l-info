@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal Linux Simulé</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #0f0; /* Vert classique des terminaux */
+            font-family: 'Consolas', 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+        }
+
+        #terminal {
+            width: 100%;
+            height: 80vh; 
+            background-color: #1c1c1c;
+            border: 1px solid #0f0;
+            overflow-y: scroll;
+            padding: 10px;
+            box-sizing: border-box;
+            line-height: 1.4;
+        }
+
+        .line {
+            /* Très important pour que cat affiche les retours à la ligne */
+            white-space: pre-wrap; 
+        }
+        
+        .dir-color {
+            color: lightblue; 
+            margin-right: 15px; 
+        }
+        
+        .file-color {
+            color: #0f0;
+            margin-right: 15px;
+        }
+
+        .prompt {
+            color: #0f0;
+        }
+
+        .input-area {
+            display: flex;
+            align-items: center;
+        }
+
+        #commandInput {
+            background: none;
+            border: none;
+            color: #0f0;
+            font-family: inherit;
+            font-size: inherit;
+            flex-grow: 1;
+            outline: none;
+            padding: 0;
+            margin: 0;
+            caret-color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div id="terminal">
+    <div class="line">Bienvenue sur le terminal simulé.</div>
+    <div class="line">Tapez 'help' pour une liste de commandes.</div>
+    <div class="line">------------------------------------</div>
+</div>
+
+<div class="input-area">
+    <span id="currentPrompt" class="prompt">user@desktop:~$ </span>
+    <input type="text" id="commandInput" autofocus>
+</div>
+<script>
+    const terminal = document.getElementById('terminal');
+    const input = document.getElementById('commandInput');
+    const currentPrompt = document.getElementById('currentPrompt');
+    const promptTextBase = 'user@desktop:'; 
+
+    // variables pour yes
+    let yesIsRunning = false; 
+    let yesInterval; 
+    let yesMessage = '';
+
+    // ---------------------------------------------------------------------
+    // --- 1. DÉFINITION DU CONTENU DES FICHIERS (VIA TEMPLATE LITERALS) ---
+    // ---------------------------------------------------------------------
+    
+    // Contenu du fichier terminal_linux.html (simulation du code source)
+    const TERMINAL_CODE = `
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <title>Terminal Linux Simulé</title>
+        </head>
+    <body>
+        <div id="terminal">...</div>
+        <script>
+            // Ceci est le code JavaScript de votre terminal !
+            const vfs = { /* ... */ };
+            function executeCommand(command) { /* ... */ }
+        <\/script>
+    </body>
+    </html>
+    `;
+
+    
+    const SNAKE_GAME_CODE = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Snake Game</title>
+        <style>
+            #game-board { border: 1px solid black; }
+        </style>
+    </head>
+    <secret>Commande secrète à taper pour jouer à un super jeu : infopasmaniak snake</secret>
+    <body>
+        <h1>Jeu du Serpent</h1>
+        <canvas id="game-board" width="400" height="400"></canvas>
+    </body>
+    </html>
+    `;
+    
+    // ----------------------------------------------------
+    // --- Système de Fichiers Virtuel (VFS) et Chemin ---
+    // ----------------------------------------------------
+
+    const vfs = {
+        'home': {
+            type: 'dir',
+            contents: {
+                'user': {
+                    type: 'dir',
+                    contents: {
+                        'documents': {
+                            type: 'dir',
+                            contents: {
+                                'resume.pdf': { type: 'file', size: '120K', content: 'Ceci est le contenu binaire et illisible du PDF.' },
+                                'notes.txt': { type: 'file', size: '3K', content: 'Notes importantes:\n- Commander du café.\n- Terminer le projet terminal.' }
+                            }
+                        },
+                        'projects': {
+                            type: 'dir',
+                            contents: {
+                                // ASSIGNATION DES VARIABLES DE CONTENU
+                                'snake_linux.html': { type: 'file', size: '4K', content: SNAKE_GAME_CODE },
+                                'terminal_linux.html': { type: 'file', size: '7K', content: TERMINAL_CODE } 
+                            }
+                        },
+                        'desktop': {
+                            type: 'dir',
+                            contents: {
+                                'trash': { type: 'dir', contents: {} }
+                            }
+                        },
+                        '.bashrc': { type: 'file', size: '1K', content: '# Configuration de l\'environnement Bash\nexport PATH=$PATH:/usr/local/bin' }
+                    }
+                }
+            }
+        },
+        'etc': { type: 'dir', contents: {} },
+        'var': { type: 'dir', contents: {} }
+    };
+
+    let currentPath = '/home/user';
+
+    // ----------------------------------------------------
+    // --- Fonctions Utilitaires ---
+    // ----------------------------------------------------
+
+    document.addEventListener('DOMContentLoaded', () => {
+        input.focus();
+        updatePrompt(); 
+    });
+    document.addEventListener('click', () => input.focus());
+
+
+ // pour yes
+    // ----------------------------------------------------
+// --- Logique du Terminal et Commandes (Modifiée) ---
+// ----------------------------------------------------
+
+// L'écouteur d'événement DOMContentLoaded et click restent inchangés
+
+document.addEventListener('keydown', function(event) {
+    console.log(event.key)
+    
+    // 🔑 1. GESTION DE L'ARRÊT DE 'yes' (Barre d'Espace)
+    if (yesIsRunning && event.ctrlKey && (event.key === 'c' || event.key === 'C')) { 
+
+        event.preventDefault(); // Empêche l'espace d'être écrit dans le champ
+        
+        // Appel de la fonction de nettoyage
+        stopYesLoop(); 
+        
+        return; 
+    }
+    
+    // 🔑 2. BLOCAGE DES AUTRES TOUCHES PENDANT 'yes'
+    // C'est crucial : si yes est en cours et que ce n'est pas la barre d'espace, on bloque tout.
+    if (yesIsRunning) {
+        event.preventDefault();
+        return; 
+    }
+
+    // 🔑 3. GESTION DE L'APPUI SUR ENTER (Uniquement si yes n'est pas en cours)
+    if (event.key === 'Enter') {
+        const command = input.value.trim();
+        const prefix = currentPrompt.textContent;
+        
+        // Execute la commande, efface l'input, scroll et met à jour le prompt.
+        executeCommand(command, prefix);
+        input.value = '';
+        scrollToBottom();
+        updatePrompt(); 
+    }
+});
+
+    /** Arrête la boucle 'yes' et réinitialise l'interface pour accepter de nouvelles commandes. */
+function stopYesLoop() {
+    if (!yesIsRunning) return; // Sécurité
+
+    clearInterval(yesInterval);
+    yesIsRunning = false;
+    yesMessage = '';
+    
+    addLine('^C'); // Afficher une interruption standard (^C est la norme)
+    
+    // Rétablit l'affichage du prompt et du champ de saisie
+    input.style.display = 'block';
+    currentPrompt.style.display = 'inline';
+    
+    // Le focus est perdu et sera rétabli par l'appel à executeCommand
+    
+    // Exécute une commande vide pour nettoyer la ligne d'input et mettre à jour le prompt
+    // C'est ce qui garantit le bon rétablissement du focus et du prompt.
+    // L'argument '' (vide) garantit qu'aucune commande n'est exécutée réellement.
+    executeCommand('', currentPrompt.textContent); 
+    input.focus();
+}
+
+
+    function addLine(text, isHtml = false) {
+        const newLine = document.createElement('div');
+        newLine.className = 'line';
+        
+        if (isHtml) {
+            newLine.innerHTML = text; 
+        } else {
+            // Utilisation de textContent pour afficher le code source sans l'interpréter
+            newLine.textContent = text;
+        }
+        
+        terminal.appendChild(newLine);
+    }
+
+    function scrollToBottom() {
+        terminal.scrollTop = terminal.scrollHeight;
+    }
+
+    function updatePrompt() {
+        const displayPath = currentPath === '/home/user' ? '~' : currentPath;
+        currentPrompt.textContent = `${promptTextBase}${displayPath}$ `;
+    }
+
+    /** Récupère l'objet fichier ou répertoire à un chemin donné. */
+    function getFileOrDir(path) {
+        if (path === '/') {
+            return { type: 'dir', contents: vfs };
+        }
+
+        let current = vfs;
+        let parts = path.split('/').filter(p => p.length > 0);
+        
+        for (let i = 0; i < parts.length; i++) {
+            const part = parts[i];
+            const item = current[part];
+            
+            if (!item) {
+                return null;
+            }
+
+            if (i === parts.length - 1) {
+                return item;
+            } else if (item.type === 'dir') {
+                current = item.contents;
+            } else {
+                return null;
+            }
+        }
+        return null; 
+    }
+    
+    /** Vérifie si le chemin pointe vers un répertoire (utilisé par cd). */
+    function isDirectory(path) {
+        const item = getFileOrDir(path);
+        return item && item.type === 'dir';
+    }
+    
+    /** Vérifie si le chemin pointe vers un fichier (utilisé par cat). */
+    function isFile(path) {
+        const item = getFileOrDir(path);
+        return item && item.type === 'file';
+    }
+    
+    /** Récupère le contenu d'un répertoire (utilisé par ls). */
+    function getDirectoryContent(path) {
+        const item = getFileOrDir(path);
+        if (item && item.type === 'dir') {
+            return item.contents;
+        }
+        return null;
+    }
+
+
+
+    function executeCommand(command, prefix) {
+        addLine(prefix + command);
+
+        const parts = command.split(/\s+/);
+        const baseCommand = parts[0];
+        const args = parts.slice(1);
+        
+        switch (baseCommand) {
+            case 'help':
+                addLine('Commandes disponibles:');
+                addLine('  help       - Affiche cette aide.');
+                addLine('  clear      - Efface le terminal.');
+                addLine('  echo [msg] - Affiche un message.');
+                addLine('  date       - Affiche la date et l\'heure actuelle.');
+                addLine('  ls [path]  - Liste le contenu du répertoire.');
+                addLine('  cd [path]  - Change de répertoire.');
+                addLine('  cat [file] - Affiche le contenu d\'un fichier.');
+                addLine('  yes [msg]  - Affiche le message saisi jusqu\'à l\'appui de Ctrl+C');
+                addLine('  snake?     - Obtenir de plus amples informations sur un super jeu ?');
+                break;
+            
+            case 'clear':
+                terminal.innerHTML = '';
+                addLine('Terminal effacé. Tapez \'help\' pour une liste de commandes.');
+                break;
+            
+            case 'echo':
+                addLine(args.join(' '));
+                break;
+
+            case 'date':
+                const now = new Date();
+                addLine(now.toString());
+                break;
+
+            case 'ls':
+                const targetArg = args[0] || ''; 
+                let pathToList;
+                
+                if (targetArg.startsWith('/')) {
+                    pathToList = targetArg;
+                } else if(targetArg === '.') {
+                    pathToList = currentPath;
+                } else if(targetArg === '..') {
+                    pathToList = currentPath.substring(0, currentPath.lastIndexOf('/'));
+                    if(pathToList ==='') pathToList = '/';
+                } else if(targetArg ==='') {
+                    pathToList = currentPath;
+                } else {
+                    pathToList = currentPath + (currentPath === '/' ? '' : '/') + targetArg;
+                }
+                
+                const contents = getDirectoryContent(pathToList);
+
+                if(!contents) {
+                    addLine(`ls: ne peut pas accéder à '${targetArg}': Aucun fichier ou dossier de ce type`);
+                    break;
+                }
+
+                const items = Object.keys(contents);
+                let output = '';
+
+                items.forEach(item => {
+                    if(!item.startsWith('.')) { 
+                        const itemType = contents[item].type;
+                        const cssClass = itemType === 'dir' ? 'dir-color' : 'file-color';
+                        output += `<span class="${cssClass}">${item}</span>`;
+                    }
+                });
+                addLine(output, true); 
+                break;
+
+            case 'cd':
+                let targetDir = args[0] || '~';
+                let newPath;
+
+                if (targetDir === '..') {
+                    newPath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+                    if (newPath === '') newPath = '/';
+                } else if (targetDir.startsWith('/')) {
+                    newPath = targetDir;
+                } else if (targetDir === '.') {
+                    newPath = currentPath;
+                } else if (targetDir === '~') {
+                    newPath = '/home/user';
+                } else {
+                    newPath = currentPath + (currentPath === '/' ? '' : '/') + targetDir;
+                }
+                
+                
+                if (!isDirectory(newPath)) {
+                    addLine(`bash: cd: ${targetDir}: Aucun fichier ou dossier de ce type ou n'est pas un répertoire`);
+                    break;
+                }
+                
+                currentPath = newPath;
+                break;
+
+            case 'cat':
+                if (args.length === 0) {
+                    addLine('cat: argument de fichier manquant');
+                    break;
+                }
+                const targetFile = args[0];
+                
+                let filePath;
+                if (targetFile.startsWith('/')) {
+                    filePath = targetFile;
+                } else {
+                    filePath = currentPath + (currentPath === '/' ? '' : '/') + targetFile;
+                }
+                
+                const fileItem = getFileOrDir(filePath);
+
+                if (isFile(filePath)) {
+                    // Affiche le contenu multi-ligne (grâce à textContent et white-space: pre-wrap;)
+                    addLine(fileItem.content); 
+                } else if (isDirectory(filePath)) {
+                    addLine(`cat: ${targetFile}: Est un répertoire`);
+                } else {
+                    addLine(`cat: ${targetFile}: Aucun fichier ou dossier de ce type`);
+                }
+                break;
+
+            case '':
+                break;
+
+            case 'infopasmaniak':
+            let secondArg = args[0];
+            if(secondArg === 'snake') {
+                addLine(`Tu viens de lancer la commande secrète ! Félicitations !`);
+                parent.openApp('Snake', './apps/snake_linux.html');
+                break;
+            } else {
+                addLine(`bash: ${baseCommand}: commande inconnue`);
+                break;
+            } 
+
+            case 'yes':
+                if (yesIsRunning) {
+                    addLine('yes: la commande est déjà en cours.');
+                    break;
+                }
+                
+        
+                yesMessage = args.length > 0 ? args.join(' ') : 'y';
+                yesIsRunning = true;
+        
+                yesInterval = setInterval(() => {
+                    addLine(yesMessage);
+                    scrollToBottom();
+                }, 10); 
+                input.style.display = 'none';
+                currentPrompt.style.display = 'none';
+                break;
+
+
+                case 'snake?': 
+                addLine('Alors quoi, tu essaies de jouer à snake ? Pas de raccourci, va le chercher toi-même, lol. Allez, bouge-toi ! ');
+                break;
+                
+
+            default:
+                addLine(`bash: ${baseCommand}: commande inconnue`);
+                break;
+
+            
+        }
+
+        if (!yesIsRunning) {
+            input.style.display = 'block';
+            currentPrompt.style.display = 'inline';
+        }
+    }
+    
+    updatePrompt();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lecteur de musique</title>
+    <link rel="stylesheet" href="../../css/music_player.css" />
+    <script src="../../js/music_player.js"></script>
+  </head>
+
+  <body>
+    <h1>Choisis ta musique</h1>
+    <div id="music-list">
+      <ul id="playlist">
+        <!-- List populated by JS -->
+      </ul>
+    </div>
+    <canvas
+      id="visualizer"
+      width="300"
+      height="100"
+      style="
+        width: 100%;
+        height: 100px;
+        background: black;
+        border: 2px inset white;
+        margin-bottom: 5px;
+      "
+    ></canvas>
+    <audio id="audio-player" controls></audio>
+  </body>
+</html>

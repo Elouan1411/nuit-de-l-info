@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+body {
+  background-color: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* Conteneur pour l'effet écran */
+.crt-monitor {
+  position: relative;
+  box-shadow: 0 0 50px rgba(0, 255, 0, 0.2);
+  /* Lueur externe */
+  border: 2px solid #333;
+  border-radius: 5px;
+}
+
+#board {
+  background-color: #000;
+  display: block;
+  /* Rendre les pixels nets si on zoome */
+  image-rendering: pixelated;
+}
+
+/* L'effet de lignes de balayage (Scanlines) */
+.scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.2)
+  );
+  background-size: 100% 4px;
+  /* Taille des lignes */
+  pointer-events: none;
+  /* Permet de cliquer à travers */
+  z-index: 10;
+}

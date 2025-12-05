@@ -1,0 +1,74 @@
+:root {
+  --gray: #c0c0c0;
+  --dark: #808080;
+  --white: #ffffff;
+  --blue: #000080;
+}
+body {
+  height: 100%;
+}
+.notepad-container {
+  width: 100%;
+  height: 100%;
+  background-color: var(--gray);
+  border: 1px solid var(--white);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  box-shadow: none;
+}
+#note-input {
+  width: 100%;
+  flex-grow: 1;
+  height: 100%;
+  padding: 5px;
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.2;
+  color: black;
+  background-color: var(--white);
+  border: none;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#note-input:focus {
+  padding: 5px;
+  flex-grow: 1;
+  line-height: 1.2;
+  width: 100%;
+  height: 100%;
+  font-family: "Courier New", monospace;
+  color: black;
+  font-size: 14px;
+  background-color: var(--white);
+  box-sizing: border-box;
+  border: none;
+  border-radius: 0;
+  outline: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.buttons {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+}
+#save-button {
+  background-color: green;
+  color: white;
+  bottom: 0;
+  width: 100px;
+}
+
+#delete-button {
+  background-color: red;
+  color: white;
+  width: 100px;
+}

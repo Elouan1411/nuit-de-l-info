@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Windows 10 (Simulé)</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="icon" href="./favicon_windows.png" type="image/png">
+</head>
+
+<body class="windows">
+  <div class="ram-bar-container">
+    <span class="ram-label">UTILISATION RAM: <span class="pourcentage"> 98</span>% (CRITIQUE)</span>
+    <div class="ram-bar windowsusage"></div>
+  </div>
+
+  <div class="containerAllApps">
+    <div class="desktop-icon" onclick="openApp('Chrome', './apps/browser.html')">
+      <img src="https://cdn-icons-png.flaticon.com/512/888/888846.png" alt="Chrome" />
+      <div>Chrome</div>
+    </div>
+
+    <div class="desktop-icon" onclick="openApp('Snake', './apps/snake.html')">
+      <img src="./assets/icons/snake.png" alt="Browser" />
+      <div>Snake</div>
+    </div>
+
+    <div class="desktop-icon" onclick="openApp('Assistant Windows', './apps/chatbot.html')">
+      <img src="./assets/icons/chat.png" alt="Windows Assistant" />
+      <div>Assistant Windows</div>
+    </div>
+
+    <div class="desktop-icon" onclick="openApp('Breakout', './apps/Breakedout.html')">
+      <img src="./assets/icons/BreakoutIcon.png" alt="Breakout" />
+      <div>Breakout</div>
+    </div>
+
+    <div class="desktop-icon" onclick="openApp('Lecteur de musique', './apps/windows/music_player.html')">
+      <img src="assets/icons/music_player.png" alt="Player" />
+      <div>Lecteur de musique</div>
+    </div>
+
+    <div class="desktop-icon" onclick="openApp('Explorateur de fichiers', './apps/files.html')">
+      <img src="https://cdn-icons-png.flaticon.com/512/3767/3767084.png" alt="Files" />
+      <div>Explorateur de fichiers</div>
+    </div>
+
+    <div class="desktop-icon locked" id="notepad-icon" onclick="tryOpenNotepad()">
+      <img src="./assets/icons/Notepad_98.png" alt="Notepad" />
+      <span class="icone"></span>
+      <div>Notepad</div>
+    </div>
+
+    <!-- ajouter les autre apps ici -->
+
+    <div class="desktop-icon" onclick="installLinux()">
+      <img src="https://cdn-icons-png.flaticon.com/512/6124/6124995.png" alt="Linux" />
+      <div>Installer Linux</div>
+    </div>
+
+    <div class="desktop-icon" onclick="openApp('Mise à jour', './apps/windows/maj.html')">
+      <img src="./assets/icons/maj.png" alt="Maj" />
+      <div>Mise à jour</div>
+    </div>
+  </div>
+
+  <script src="./js/core.js"></script>
+  <script>
+    // Annoying Popups
+    setInterval(() => {
+      const errors = [
+        "Erreur système: 0x000000",
+        "Votre PC a rencontré un problème",
+        "DLL Manquant",
+        "Registre corrompu",
+        "Attention : Windows 10 n'est plus supporté",
+      ];
+      const msg = errors[Math.floor(Math.random() * errors.length)];
+
+      // Use the unified error style
+      if (typeof showError === "function") {
+        showError("Erreur système", msg);
+      }
+    }, 50000);
+  </script>
+  <div class="taskbar">
+    <div class="start-button" onclick="showStartMenuError()">
+      <i class="fab fa-windows"></i>
+    </div>
+    <div class="search-bar" onclick="openAssistant()">
+      <i class="fas fa-search"></i>
+      <span>Tapez ici pour chercher</span>
+    </div>
+    <div class="taskbar-icon" onclick="openApp('Chrome', './apps/browser.html')">
+      <img src="https://cdn-icons-png.flaticon.com/512/888/888846.png" alt="Chrome" />
+    </div>
+    <div class="taskbar-icon" onclick="openApp('Explorateur de fichiers', './apps/files.html')">
+      <img src="https://cdn-icons-png.flaticon.com/512/3767/3767084.png" alt="Explorateur de fichiers" />
+    </div>
+    <div class="taskbar-right" onclick="showClockError()">
+      <div class="taskbar-time">12:00</div>
+      <div class="taskbar-date">13/12/2025</div>
+    </div>
+  </div>
+
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</body>
+
+</html>

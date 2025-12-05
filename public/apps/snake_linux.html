@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Snake - Amélioré</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #0d0d0d;
+        }
+
+        canvas {
+            border: 5px solid #00ff00;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.6);
+        }
+    </style>
+</head>
+
+<body>
+    <canvas></canvas>
+    <script src="../js/core.js"></script>
+    <script>
+        window.onload = () => window.focus();
+        window.onclick = () => window.focus();
+        const canvas = document.querySelector("canvas");
+        const context = canvas.getContext("2d");
+
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+
+        const gridSize = 30;
+        const newBox = Math.min(Math.floor(viewportWidth / gridSize), Math.floor(viewportHeight / gridSize));
+
+        canvas.width = gridSize * newBox;
+        canvas.height = gridSize * newBox;
+
+        let box = newBox;
+        const gridLimit = gridSize - 1;
+
+        const padding = 2;
+
+        let snake;
+        let food;
+        let score;
+        let d;
+        let intervalTime;
+        let game;
+        let gameIsOver = false;
+
+
+
+        function initGame() {
+            snake = [];
+            snake[0] = {
+                x: Math.floor(gridSize / 2) * box,
+                y: Math.floor(gridSize / 2) * box
+            };
+
+            food = {
+                x: Math.floor(Math.random() * gridLimit) * box,
+                y: Math.floor(Math.random() * gridLimit) * box,
+            };
+
+            score = 0;
+            d = undefined; // Réinitialiser la direction
+            intervalTime = 100;
+            gameIsOver = false;
+
+            // Lance la boucle de jeu
+            if (game) clearInterval(game);
+            game = setInterval(draw, intervalTime);
+        }
+
+
+        document.addEventListener("keydown", handleKeydown);
+
+
+        function handleKeydown(event) {
+            let key = event.keyCode;
+
+            // Si le jeu est terminé, on vérifie si l'utilisateur appuie sur ENTER
+            if (gameIsOver) {
+                if (key === 13) {
+                    initGame(); // Rejouer
+                }
+                return;
+            }
+
+            // Gestion des directions pendant le jeu
+            if (key == 37 && d != "RIGHT") { d = "LEFT"; }
+            else if (key == 38 && d != "DOWN") { d = "UP"; }
+            else if (key == 39 && d != "LEFT") { d = "RIGHT"; }
+            else if (key == 40 && d != "UP") { d = "DOWN"; }
+        }
+
+        function collision(head, array) {
+            for (let g = 0; g < array.length; g++) {
+                if (head.x == array[g].x && head.y == array[g].y) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function gameOverScreen() {
+            context.fillStyle = "rgba(0, 0, 0, 0.8)";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+
+            context.fillStyle = "#ff4444";
+            context.textAlign = "center";
+            context.font = "bold 60px 'Consolas', monospace";
+            context.fillText("JEU TERMINÉ", canvas.width / 2, canvas.height / 2 - 40);
+
+            context.fillStyle = "#ffffff";
+            context.font = "30px 'Consolas', monospace";
+            context.fillText("Score Final: " + score, canvas.width / 2, canvas.height / 2 + 20);
+
+
+            context.fillStyle = "#00ff00";
+            context.font = "20px 'Consolas', monospace";
+            context.fillText("APPUYEZ SUR [ENTRÉE] POUR REJOUER", canvas.width / 2, canvas.height / 2 + 80);
+        }
+
+        function drawBoard() {
+            for (let x = 0; x < gridSize; x++) {
+                for (let y = 0; y < gridSize; y++) {
+                    context.fillStyle = (x + y) % 2 === 0 ? "#222" : "#333";
+                    context.fillRect(x * box, y * box, box, box);
+                }
+            }
+        }
+
+        function drawSegment(x, y, color, isHead = false) {
+            if (isHead) {
+                context.shadowColor = '#00ff00';
+                context.shadowBlur = 15;
+            } else {
+                context.shadowBlur = 0;
+            }
+
+            context.fillStyle = color;
+            context.fillRect(x + padding, y + padding, box - 2 * padding, box - 2 * padding);
+        }
+
+
+        function draw() {
+            drawBoard();
+
+            for (let i = 0; i < snake.length; i++) {
+                const x = snake[i].x;
+                const y = snake[i].y;
+
+                if (i === 0) {
+                    drawSegment(x, y, "#00ff00", true);
+                } else {
+                    drawSegment(x, y, "#00aa00");
+                }
+            }
+
+            context.shadowColor = '#ffaa00';
+            context.shadowBlur = 15;
+            context.fillStyle = "#ffaa00";
+            context.fillRect(food.x + padding, food.y + padding, box - 2 * padding, box - 2 * padding);
+            context.shadowBlur = 0;
+
+            let snakeX = snake[0].x;
+            let snakeY = snake[0].y;
+            if (d == "LEFT") {
+                snakeX -= box;
+            } else if (d == "RIGHT") {
+                snakeX += box;
+            } else if (d == "UP") {
+                snakeY -= box;
+            } else if (d == "DOWN") {
+                snakeY += box;
+            }
+
+            if (snakeX == food.x && snakeY == food.y) {
+                score++;
+                food = {
+                    x: Math.floor(Math.random() * gridSize) * box,
+                    y: Math.floor(Math.random() * gridSize) * box,
+                };
+                if (score % 5 === 0 && intervalTime > 50) {
+                    intervalTime -= 5;
+                    clearInterval(game);
+                    game = setInterval(draw, intervalTime);
+                }
+            } else {
+                snake.pop();
+            }
+            let newHead = {
+                x: snakeX,
+                y: snakeY,
+            };
+
+            if (
+                snakeX < 0 ||
+                snakeY < 0 ||
+                snakeX >= canvas.width ||
+                snakeY >= canvas.height ||
+                collision(newHead, snake)
+            ) {
+                clearInterval(game);
+                gameIsOver = true;
+                gameOverScreen();
+                return;
+            }
+
+            snake.unshift(newHead);
+
+            context.fillStyle = "#ffffff";
+            context.font = "bold 24px 'Consolas', monospace";
+            context.textAlign = "left";
+            context.fillText("Score: " + score, 1 * box, 1.5 * box);
+        }
+
+
+        initGame(); 
+    </script>
+</body>
+
+</html>

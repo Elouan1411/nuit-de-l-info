@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Linux (Simulated)</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="icon" href="./favicon_linux.png" type="image/png">
+</head>
+
+<body class="linux">
+  <!-- Top Bar -->
+  <div class="linux-top-bar">
+    <div class="left-menu">Nuit de l'Info 2025</div>
+    <div class="clock" id="linux-clock">12:00</div>
+    <div class="right-menu">
+      <span>FR</span>
+      <span>🔋 100%</span>
+      <span>🔈</span>
+    </div>
+  </div>
+
+  <!-- Welcome Message Popup Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Simple notification simulation
+      const notification = document.createElement("div");
+      notification.style.position = "fixed";
+      notification.style.top = "40px";
+      notification.style.right = "10px";
+      notification.style.background = "rgba(0,0,0,0.8)";
+      notification.style.color = "white";
+      notification.style.padding = "15px";
+      notification.style.borderRadius = "5px";
+      notification.style.boxShadow = "0 2px 10px rgba(0,0,0,0.3)";
+      notification.style.zIndex = "3000";
+      notification.style.fontFamily = "Ubuntu, sans-serif";
+      notification.style.animation = "slideIn 0.5s ease-out";
+      notification.innerHTML = `
+                <div style="font-weight: bold; margin-bottom: 5px;">Notification système</div>
+                <div>Bienvenue sur Linux<br>Le système est stable. Aucune erreur détectée.</div>
+            `;
+      document.body.appendChild(notification);
+
+      // Remove after 5 seconds
+      setTimeout(() => {
+        notification.style.opacity = "0";
+        notification.style.transition = "opacity 0.5s";
+        setTimeout(() => notification.remove(), 500);
+      }, 5000);
+    });
+  </script>
+
+  <!-- Desktop Icons -->
+  <div class="desktop-icon" onclick="openApp('Terminal', './apps/terminal_linux.html')">
+    <img src="./assets/icons/terminal_linux_icone.png" alt="Terminal" />
+    <div>Terminal</div>
+  </div>
+
+  <div class="desktop-icon" onclick="openApp('Text Editor', './apps/linux/text_editor.html')">
+    <img src="./assets/icons/text_editor.png" alt="Text Editor" />
+    <div>Text Editor</div>
+  </div>
+
+  <div class="desktop-icon" onclick="openApp('LinAssistant', './apps/chatbot_linux.html')">
+    <img src="./assets/icons/chat_linux.png" alt="LunAssistant" />
+    <div>LinAssistant</div>
+  </div>
+
+  <div class="desktop-icon" onclick="openApp('Fichiers', './apps/files_linux.html')">
+    <img src="https://cdn-icons-png.flaticon.com/512/3767/3767084.png" alt="Fichiers" />
+    <div>Fichiers</div>
+  </div>
+
+  <div class="desktop-icon" onclick="openApp('Moniteur Système', './apps/linux/system_monitor.html')">
+    <img src="https://cdn-icons-png.flaticon.com/512/2933/2933245.png" alt="Moniteur Système" />
+    <div>Moniteur Système</div>
+  </div>
+
+  <div class="desktop-icon" onclick="openApp('Lecteur de musique', './apps/linux/music_player.html')"
+    title="Lecteur de musique">
+    <img src="./assets/icons/music_player_linux.png" alt="LunAssistant" />
+    <div>Lecteur de musique</div>
+  </div>
+
+  <div class="desktop-icon" onclick="openApp('BreakOut', './apps/Breakout.html')" title="Break Out">
+    <img src="./assets/icons/BreakoutIcon.png" alt="Breakout" />
+    <div>Break Out</div>
+  </div>
+
+  <div class="desktop-icon" onclick="openApp('Gestionnaire de mise à jour', './apps/maj_linux.html')">
+    <img src="./assets/icons/maj.png" alt="Maj" />
+    <div>Mise à jour</div>
+  </div>
+
+  <!-- Bottom Dock -->
+  <div class="linux-taskbar">
+    <div class="linux-taskbar-icon" onclick="openApp('Terminal', './apps/terminal_linux.html')" title="Terminal">
+      <img src="./assets/icons/terminal_linux_icone.png" alt="Terminal" />
+    </div>
+    <div class="linux-taskbar-icon" onclick="openApp('Fichiers', './apps/files_linux.html')" title="Fichiers">
+      <img src="https://cdn-icons-png.flaticon.com/512/3767/3767084.png" alt="Fichiers" />
+    </div>
+    <div class="linux-taskbar-icon" onclick="openApp('Text Editor', './apps/linux/text_editor.html')"
+      title="Text Editor">
+      <img src="./assets/icons/text_editor.png" alt="Text Editor" />
+    </div>
+    <div class="linux-taskbar-icon" onclick="openApp('Moniteur Système', './apps/linux/system_monitor.html')"
+      title="Moniteur Système">
+      <img src="https://cdn-icons-png.flaticon.com/512/2933/2933245.png" alt="Moniteur Système" />
+    </div>
+    <div class="linux-taskbar-icon" onclick="openApp('LinAssistant', './apps/chatbot_linux.html')" title="LunAssistant">
+      <img src="./assets/icons/chat_linux.png" alt="LunAssistant" />
+    </div>
+
+    <div class="linux-taskbar-icon" onclick="openApp('Lecteur de musique', './apps/linux/music_player.html')"
+      title="Musique">
+      <img src="./assets/icons/music_player_linux.png" alt="LunAssistant" />
+    </div>
+  </div>
+
+  <script src="./js/core.js"></script>
+  <script>
+    function updateLinuxClock() {
+      const now = new Date();
+      const dateStr = now.toLocaleDateString("fr-FR", {
+        weekday: "short",
+        day: "numeric",
+        month: "short",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      document.getElementById("linux-clock").textContent = dateStr;
+    }
+    setInterval(updateLinuxClock, 1000);
+    updateLinuxClock();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Snake</title>
+    <style>
+        canvas {
+            border: 2px solid;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="400" height="400"></canvas>
+    <script src="../js/core.js"></script>
+    <script>
+        window.onload = () => window.focus();
+        window.onclick = () => window.focus();
+        const canvas = document.querySelector("canvas");
+        const context = canvas.getContext("2d");
+
+        let box = 20;
+
+        let snake = [];
+        snake[0] = { x: 10 * box, y: 10 * box };
+
+        // 🔑 CORRECTION: Utilise 20 pour couvrir la plage de 0 à 19
+        let food = {
+            x: Math.floor(Math.random() * 20) * box,
+            y: Math.floor(Math.random() * 20) * box,
+        };
+
+        let score = 0;
+        let d;
+        let game;
+
+        // 🔑 AJOUT TEMPORAIRE : Fonction showError pour garantir que les popups fonctionnent (retirez si core.js est valide)
+        function showError(title, message) {
+            alert(title + "\n\n" + message);
+        }
+
+        document.addEventListener("keydown", direction);
+
+        function direction(event) {
+            let key = event.keyCode;
+            if (key == 37 && d != "RIGHT") {
+                d = "LEFT";
+            } else if (key == 38 && d != "DOWN") {
+                d = "UP";
+            } else if (key == 39 && d != "LEFT") {
+                d = "RIGHT";
+            } else if (key == 40 && d != "UP") {
+                d = "DOWN";
+            }
+        }
+
+        function collision(head, array) {
+            for (let g = 0; g < array.length; g++) {
+                if (head.x == array[g].x && head.y == array[g].y) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Encapsule l'affichage de l'écran d'erreur
+        function displayGameOverScreen() {
+            context.clearRect(0, 0, 400, 400);
+
+            // Fond rouge pour l'effet d'erreur
+            context.fillStyle = 'red';
+            context.fillRect(0, 0, 400, 400);
+
+            context.fillStyle = 'white';
+            context.font = 'bold 24px Arial';
+            context.textAlign = 'center';
+            context.fillText("UNE ERREUR EST SURVENUE", 200, 180);
+            context.font = '16px Arial';
+            context.fillText("Une exception fatale 0E s'est produite au niveau du score : " + score, 200, 220);
+            context.fillText("Veuillez fermer les fenêtres contextuelles pour continuer.", 200, 250);
+            context.fillText("Va jouer à un autre jeu sur un meilleur système d'exploitation lol", 200, 280);
+        }
+
+
+        function draw() {
+
+            context.clearRect(0, 0, 400, 400);
+
+            // Dessin du serpent
+            for (let i = 0; i < snake.length; i++) {
+                context.fillStyle = i == 0 ? "green" : "white";
+                context.fillRect(snake[i].x, snake[i].y, box, box);
+                context.strokeStyle = "red";
+                context.strokeRect(snake[i].x, snake[i].y, box, box);
+            }
+
+            // Dessin de la nourriture
+            context.fillStyle = "orange";
+            context.fillRect(food.x, food.y, box, box);
+
+            // Calcul de la tête
+            let snakeX = snake[0].x;
+            let snakeY = snake[0].y;
+            if (d == "LEFT") {
+                snakeX -= box;
+            } else if (d == "RIGHT") {
+                snakeX += box;
+            } else if (d == "UP") {
+                snakeY -= box;
+            } else if (d == "DOWN") {
+                snakeY += box;
+            }
+
+            // Logique de jeu (nourriture/score/queue)
+            if (snakeX == food.x && snakeY == food.y) {
+                score++;
+                food = {
+                    // 🔑 CORRECTION: Utilise 20 pour couvrir la plage de 0 à 19
+                    x: Math.floor(Math.random() * 20) * box,
+                    y: Math.floor(Math.random() * 20) * box,
+                };
+            } else {
+                snake.pop();
+            }
+
+            let newHead = {
+                x: snakeX,
+                y: snakeY,
+            };
+
+            // Vérification de la défaite/collision
+            if (
+                snakeX < 0 ||
+                snakeY < 0 ||
+                // La limite est 19 * box (soit 380px). Si snakeX atteint 400px (20 * box), c'est une défaite.
+                snakeX >= 400 ||
+                snakeY >= 400 ||
+                collision(newHead, snake)
+            ) {
+                clearInterval(game);
+
+                displayGameOverScreen();
+
+                const errors = [
+                    " Erreur de segmentation (core dumped) ", " Erreur de protection générale ", " Mémoire insuffisante ",
+                    " Windows a effectué une opération illégale ", " Clavier introuvable - Appuyez sur F1 pour continuer ",
+                    " Une erreur critique s'est produite ", " Erreur - Essayez de redémarrer votre système ",
+                    " Erreur critique - vous avez été trop mauvais et vous avez été expulsé du jeu ",
+                    " Une erreur s'est produite - Qui est le développeur ? Henriet est-il de retour ? ",
+                    " Erreur - La fenêtre du tampon a atteint sa taille maximale ",
+                    " L'utilisation de la RAM a atteint un niveau critique, veuillez essayer de redémarrer ",
+                    " Ce snake est nul. Vous en trouverez probablement un autre sur un meilleur système d'exploitation, je dis ça comme ça... ",
+                    " Honte à vous, c'est quoi ce jeu ? Vous devriez jouer à une meilleure version, mais bon, Windows, quoi ??? ",
+                ];
+
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(() => {
+                        const msg = errors[Math.floor(Math.random() * errors.length)];
+                        if (typeof showError === 'function') {
+                            parent.showError("Erreur système", msg);
+                        }
+                    }, i * 20);
+                }
+
+                return;
+            }
+
+            // Ajout de la nouvelle tête et affichage du score
+            snake.unshift(newHead);
+            context.fillStyle = "red";
+            context.font = "30px Arial";
+            context.fillText(score, 2 * box, 1.6 * box);
+        }
+
+        game = setInterval(draw, 100);
+
+    </script>
+</body>
+
+</html>

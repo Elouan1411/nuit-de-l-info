@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Notepad</title>
+    <link rel="stylesheet" href="../../css/text_editor.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/theme/monokai.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/mode/javascript/javascript.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/theme/monokai.min.css"
+    />
+    <script src="../../js/text_editor.js"></script>
+  </head>
+
+  <body>
+    <div class="buttons">
+      <button id="save-button">Sauvegarder</button>
+      <button id="delete-button">Effacer</button>
+    </div>
+    <div class="notepad-container">
+      <textarea
+        id="note-input"
+        placeholder="Écrivez votre note ici..."
+        wrap="soft"
+        rows="10000"
+      ></textarea>
+    </div>
+  </body>
+</html>

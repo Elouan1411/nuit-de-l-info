@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows Update - Erreur critique</title>
+    <link rel="stylesheet" href="../../css/maj_windows.css">
+</head>
+<body>
+
+    <div class="window-container">
+        <div class="header">Windows Update</div>
+        
+        <div class="content">
+            <div class="error-icon">⚠</div>
+            
+            <h2>MAJ impossible, Windows 10 n'est plus supporté.</h2>
+            <p>
+                Votre appareil court un risque car il ne reçoit plus les mises à jour de sécurité et de qualité.<br>
+                Code d'arrêt : WIN_EOL_DEPRECATED
+            </p>
+
+            <button class="btn-fake-disabled" onclick="showError()">
+                Rechercher des mises à jour
+            </button>
+        </div>
+    </div>
+
+    <div class="overlay" id="errorOverlay">
+        <div class="error-popup">
+            <div class="popup-header">
+                <span>Erreur système</span>
+                <span style="cursor:pointer;" onclick="closeError()">✕</span>
+            </div>
+            <div class="popup-body">
+                <div class="popup-icon">❌</div>
+                <div>
+                    L'opération n'a pas pu être terminée.<br>
+                    Le service de mise à jour a rencontré une exception fatale.
+                    <code>0x80070005 - ACCESS_DENIED_OS_OBSOLETE</code>
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="popup-btn" onclick="closeError()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showError() {
+            // Affiche la popup
+            document.getElementById('errorOverlay').style.display = 'flex';
+            
+            // Optionnel : Jouer un son d'erreur système si le navigateur le permettait facilement
+            // (Nécessite une interaction utilisateur préalable plus complexe pour l'audio)
+        }
+
+        function closeError() {
+            // Cache la popup
+            document.getElementById('errorOverlay').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
