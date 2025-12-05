@@ -1,0 +1,205 @@
+/* style.css */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url(../images/maree/texture_sable.png) ;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+  }
+  
+  #game-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  #sea {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 0;
+    opacity:75%;
+    background: linear-gradient(#a0dcff,#00a2ff);
+    transition: height 0.2s ease;
+  }
+  
+  #trash-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+  }
+  
+  .trash {
+    position: absolute;
+    background: url('trash.png') no-repeat center/contain;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  #score-board {
+    position: absolute;
+    top: 10px;
+    left: 50px;
+    font-size: 48px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    margin-left: 50px;
+  }
+  
+  #restart-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 30px 40px;
+    font-size: 35px;
+    background: #0077be;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  #restart-button:hover {
+    background: #005f9e;
+  }
+
+  .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    z-index: 1000;
+    width: 400px;
+}
+
+.popup p {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.popup button {
+    display: inline-block;
+    margin: 10px 5px;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popup button:hover {
+    background-color: #f0f0f0;
+}
+
+.popup button:first-child {
+    background-color: #007bff;
+    color: white;
+}
+
+.popup button:first-child:hover {
+    background-color: #0056b3;
+}
+
+.popup button:last-child {
+    background-color: #28a745;
+    color: white;
+}
+
+.popup button:last-child:hover {
+    background-color: #1e7e34;
+}
+
+
+
+
+/* Animation pour faire couler les déchets */
+@keyframes sink {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(50px) scale(0.5);
+        opacity: 0;
+    }
+}
+
+.sink-animation {
+    animation: sink 1s ease-out forwards;
+}
+
+
+
+
+/* Animation pour récupérer les déchets */
+@keyframes collect {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+.collect-animation {
+    animation: collect 0.8s ease-in-out forwards;
+}
+
+/*****************************************************
+----------------------son
+*****************************************************/
+#soundToggle {
+	position: fixed;
+	top: 120px;
+	right: 10px;
+	padding: 10px 15px;
+	background-color: #3498db;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 14px;
+	z-index: 1000;
+}
+
+#toggleButton {
+	position: fixed;
+	top: 180px;
+	right: 20px;
+	padding: 10px 20px;
+	background-color: #3498db;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	z-index: 1000000;
+	transition: all 0.3s ease-in-out;
+}
+#toggleButton.message {
+	background-color: #2ecc71;
+	color: #111E2C;
+	border: 2px solid #27ae60;
+	padding: 15px 25px;
+	font-size: 18px;
+	cursor: default;
+}

@@ -1,0 +1,412 @@
+:root {
+	--bg-main: #1D3249;
+	--fg-main: #1D3249;
+	--bg-foot: white;
+	--fg-foot: #1D3249;
+	--bg-logos: inherit;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--bg-main: #1D3249;
+		--bg-foot: #1D3249;
+		--fg-main: white;
+		--fg-foot: #2F5075;
+		--bg-logos: white;
+	}
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: var(--bg-main);
+	color: var(--fg-main);
+}
+
+/*************************************************************************** */
+/**                                     a11y                                 */
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	**::after {
+		animation: none !important;
+		transform: none !important;
+		background-attachment: initial !important;
+		scroll-behavior: auto !important;
+	}
+}
+/****************************************************************
+                            Titre
+****************************************************************/
+
+body {
+	font: 13px/1.4 Verdana, Arial, Sans-Serif;
+	background-color: #1D3249;
+    height: 100vh;
+    overflow: hidden;
+}
+
+main {
+	position: relative;
+	background-color: #FDD8C3;
+	margin: 20px auto 20px auto;
+	width: 900px;
+	text-align: justify;
+}
+h1,h2, h3 {
+	font-weight: bold;
+	margin: 1em 0;
+}
+h1 {
+	font-size: 21px;
+	padding-left: 0.5em;
+	margin-bottom: 1em;
+}
+h2 {
+	font-size: 18px;
+	border-bottom: 2px solid #FDD8C3;
+	padding-left: 0.5em;
+}
+h3 {
+	font-size: 15px;
+	margin-left: 1em;
+}
+p { 
+	margin: 1em;
+}
+strong { 
+	font-weight: bold;
+}
+a {
+	text-decoration: none;
+	color: #3c96f1;
+}
+a:hover { 
+	text-decoration: underline;
+}
+.clear {
+	clear: both;
+}
+.font6 {
+	font-size: 6px;
+}
+ul {
+	margin: 0em 1em 1em 3em;
+}
+li {
+	padding-left: 16px;
+}
+nav {
+	margin: 0 0 2em 1em;
+}
+nav ul {
+    margin: 0;
+}   
+nav ul ul {
+	margin-left: 3em;
+}
+nav li {
+	margin: 0.5em 0;
+}
+
+
+
+/**********************************************************
+                            Entête
+**********************************************************/
+header {
+	position: relative;
+	background-size: cover;
+	color: #9CE79C;
+	height: 200px;
+	padding: 0;
+	margin: 0;
+}
+header > a {
+	position: absolute;
+	width: 422px;
+	height: 153px;
+	left: 20px;
+	top: 10px;
+}
+header > img {
+	position: absolute;
+	width: 364px;
+	height: 50px;
+	bottom: 0px;
+	right: 0px;
+}
+
+/**********************************************************
+                            canva
+**********************************************************/
+#messageBox {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: white;
+	font-size: 24px;
+	background: rgba(0, 0, 0, 0.7);
+	padding: 20px;
+	border-radius: 10px;
+	display: none;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    z-index: 1000;
+    width: 400px;
+}
+
+.popup p {
+    font-size: 20px;
+    margin-bottom: 20px;
+	color: black;
+}
+
+.popup button {
+    display: inline-block;
+    margin: 10px 5px;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popup button:hover {
+    background-color: #f0f0f0;
+}
+
+.popup button:first-child {
+    background-color: #007bff;
+    color: white;
+}
+
+.popup button:first-child:hover {
+    background-color: #0056b3;
+}
+
+.popup button:last-child {
+    background-color: #28a745;
+    color: white;
+}
+
+.popup button:last-child:hover {
+    background-color: #1e7e34;
+}
+
+#toggleButton {
+	position: fixed;
+	top: 60px;
+	left: 120px;
+	padding: 10px 20px;
+	background-color: #3498db;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	z-index: 1000;
+	transition: all 0.3s ease-in-out;
+}
+
+#returnButton {
+	position: fixed;
+	top: 10px;
+	left: 70px;
+	padding: 10px 20px;
+	background-color: #3498db;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	z-index: 1000;
+	transition: all 0.3s ease-in-out;
+}
+
+/* Style du message (quand c'est activé) */
+#toggleButton.message {
+	background-color: #2ecc71;
+	color: #111E2C;
+	border: 2px solid #27ae60;
+	padding: 15px 25px;
+	font-size: 18px;
+	cursor: default;
+}
+/**********************************************************
+                            bulle
+**********************************************************/
+@keyframes rise {
+	0% {
+		transform: translateY(0) scale(1);
+		opacity: 0.8;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		transform: translateY(-800px) scale(0.8);
+		opacity: 0;
+	}
+}
+
+.bubble {
+	position: absolute;
+	bottom: -20; /* Commence en bas de l'écran */
+	width: 20px;
+	height: 20px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url('../images/coeur/bulle1.png'); /* Chemin vers votre image */
+	animation: rise 5s infinite ease-in-out;
+	opacity: 0.8;
+	left: 10%;
+	animation-duration: 4s;
+	animation-delay: 0s;
+}
+
+.bubble:nth-child(1) {
+	left: 10%;
+	animation-duration: 4s;
+	animation-delay: 0s;
+}
+.bubble:nth-child(2) {
+	left: 30%;
+	animation-duration: 5.5s;
+	animation-delay: 0.2s;
+}
+.bubble:nth-child(3) {
+	left: 50%;
+	animation-duration: 6s;
+	animation-delay: 1s;
+}
+.bubble:nth-child(4) {
+	left: 70%;
+	animation-duration: 4.5s;
+	animation-delay: 0.5s;
+}
+.bubble:nth-child(5) {
+	left: 90%;
+	animation-duration: 7s;
+	animation-delay: 0.6s;
+}
+.bubble:nth-child(6) {
+	left: 52%;
+	animation-duration: 4s;
+	animation-delay: 0s;
+}
+.bubble:nth-child(7) {
+	left: 23%;
+	animation-duration: 5.5s;
+	animation-delay: 0.2s;
+}
+.bubble:nth-child(8) {
+	left: 67%;
+	animation-duration: 6s;
+	animation-delay: 1s;
+}
+.bubble:nth-child(9) {
+	left: 12%;
+	animation-duration: 4.5s;
+	animation-delay: 0.5s;
+}
+.bubble:nth-child(10) {
+	left: 45%;
+	animation-duration: 7s;
+	animation-delay: 0.6s;
+}
+.bubble:nth-child(11) {
+	left: 91%;
+	animation-duration: 4s;
+	animation-delay: 0s;
+}
+.bubble:nth-child(12) {
+	left: 8%;
+	animation-duration: 5.5s;
+	animation-delay: 0.2s;
+}
+.bubble:nth-child(13) {
+	left: 47%;
+	animation-duration: 6s;
+	animation-delay: 1s;
+}
+.bubble:nth-child(14) {
+	left: 29%;
+	animation-duration: 4.5s;
+	animation-delay: 0.5s;
+}
+.bubble:nth-child(15) {
+	left: 31%;
+	animation-duration: 7s;
+	animation-delay: 0.6s;
+}
+.bubble:nth-child(16) {
+	left: 74%;
+	animation-duration: 4s;
+	animation-delay: 0s;
+}
+.bubble:nth-child(17) {
+	left: 99%;
+	animation-duration: 5.5s;
+	animation-delay: 0.2s;
+}
+.bubble:nth-child(18) {
+	left: 2%;
+	animation-duration: 6s;
+	animation-delay: 1s;
+}
+.bubble:nth-child(19) {
+	left: 54%;
+	animation-duration: 4.5s;
+	animation-delay: 0.5s;
+}
+.bubble:nth-child(20) {
+	left: 63%;
+	animation-duration: 7s;
+	animation-delay: 0.6s;
+}
+
+.bubble-type1 {
+	background-image: url('../images/coeur/bulle1.png');
+}
+
+.bubble-type2 {
+	background-image: url('../images/coeur/bulle2.png');
+}
+
+.bubble-type3 {
+	background-image: url('../images/coeur/bulle3.png');
+}
+.bubble-type4 {
+	background-image: url('../images/coeur/meduse.png');
+}
+
+/*****************************************************
+----------------------son
+*****************************************************/
+#soundToggle {
+	position: fixed;
+	top: 10px;
+	left: 120px;
+	padding: 10px 15px;
+	background-color: #3498db;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 14px;
+	z-index: 1000;
+}

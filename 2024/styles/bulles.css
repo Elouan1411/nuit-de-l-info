@@ -1,0 +1,94 @@
+/**********************************************************
+                            bulle
+**********************************************************/
+@keyframes rise {
+	0% {
+		transform: translateY(0) scale(1);
+		opacity: 0.8;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		transform: translateY(-800px) scale(0.8);
+		opacity: 0;
+	}
+}
+
+.bubble {
+	position: absolute;
+	bottom: -20; /* Commence en bas de l'écran */
+	width: 50px;
+	height: 50px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url('../images/coeur/bulle1.png'); /* Chemin vers votre image */
+	animation: rise 5s infinite ease-in-out;
+	opacity: 0.8;
+	left: 10%;
+	animation-duration: 4s;
+	animation-delay: 0s;
+}
+
+.bubble:nth-child(1) {
+	left: 10%;
+	animation-duration: 4s;
+	animation-delay: 0s;
+}
+.bubble:nth-child(2) {
+	left: 30%;
+	animation-duration: 5.5s;
+	animation-delay: 0.2s;
+}
+.bubble:nth-child(3) {
+	left: 50%;
+	animation-duration: 6s;
+	animation-delay: 1s;
+}
+.bubble:nth-child(4) {
+	left: 70%;
+	animation-duration: 4.5s;
+	animation-delay: 0.5s;
+}
+.bubble:nth-child(5) {
+	left: 90%;
+	animation-duration: 7s;
+	animation-delay: 0.6s;
+}
+.bubble:nth-child(6) {
+	left: 52%;
+	animation-duration: 4s;
+	animation-delay: 0s;
+}
+.bubble:nth-child(7) {
+	left: 23%;
+	animation-duration: 5.5s;
+	animation-delay: 0.2s;
+}
+.bubble:nth-child(8) {
+	left: 67%;
+	animation-duration: 6s;
+	animation-delay: 1s;
+}
+.bubble:nth-child(9) {
+	left: 12%;
+	animation-duration: 4.5s;
+	animation-delay: 0.5s;
+}
+.bubble:nth-child(10) {
+	left: 45%;
+	animation-duration: 7s;
+	animation-delay: 0.6s;
+}
+
+.bubble-type1 {
+	background-image: url('../images/coeur/bulle1.png');
+}
+
+.bubble-type2 {
+	background-image: url('../images/coeur/bulle2.png');
+}
+
+.bubble-type3 {
+	background-image: url('../images/coeur/bulle3.png');
+}

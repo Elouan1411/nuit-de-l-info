@@ -1,0 +1,259 @@
+:root {
+	--bg-main: #111E2C;
+	--fg-main: #111E2C;
+	--bg-foot: white;
+	--fg-foot: #111E2C;
+	--bg-logos: inherit;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--bg-main: #111E2C;
+		--bg-foot: #111E2C;
+		--fg-main: white;
+		--fg-foot: #111E2C;
+		--bg-logos: white;
+	}
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: var(--bg-main);
+	color: var(--fg-main);
+}
+
+/*************************************************************************** */
+/**                                     a11y                                 */
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	**::after {
+		animation: none !important;
+		transform: none !important;
+		background-attachment: initial !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+
+
+/****************************************************************
+                            Titre
+****************************************************************/
+
+body {
+	font: 13px/1.4 Verdana, Arial, Sans-Serif;
+	padding-left : 30px;
+	background: #1D3249 url(../images/ocean_fond.png) no-repeat center center; 
+    background-size: cover;
+}
+
+main {
+	position: relative;
+    background-color: #1D3249;
+    text-align: justify;
+	width: 800px;
+	padding-top: 100px;
+	margin : 20px auto 20px auto;
+}
+
+h1,h2, h3 {
+	font-weight: bold;
+	margin: 1em 0;
+}
+h1 {
+	font-family: 'Robotto', sans-serif;	
+	text-align : center;
+	font-size: 40px;
+	padding-left: 15px;
+	margin-bottom: 15px;
+}
+h2 {
+	font-size: 21px;
+	border-bottom: 1px solid white;
+	margin-bottom: 10px;
+	padding-left: 0.5em;
+}
+h3 {
+	font-size: 15px;
+	margin-left: 1em;
+}
+p { 
+	font-size: 16px;
+	margin: 1em;
+}
+strong { 
+	font-weight: bold;
+}
+a {
+	text-decoration: none;
+	color: #3c96f1;
+}
+a:hover { 
+	text-decoration: underline;
+}
+.clear {
+	clear: both;
+}
+.font6 {
+	font-size: 6px;
+}
+ul {
+	margin: 0em 1em 1em 3em;
+}
+li {
+	padding-left: 16px;
+}
+nav {
+	margin: 0 0 2em 1em;
+}
+nav ul {
+    margin: 0;
+}   
+nav ul ul {
+	margin-left: 3em;
+}
+nav li {
+	margin: 0.5em 0;
+}
+
+
+
+/**********************************************************
+                            Entête
+**********************************************************/
+header {
+	z-index: 10;
+    position: fixed; 
+    top: 0; 
+	left : 0;
+    width: 100%; 
+    background-color: #111E2C; 
+    color: white;
+    height: 110px;
+    display: flex; /* Utilise Flexbox */
+    align-items: center;
+	margin : auto;
+	padding-left : 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+header #jeu img {
+    width: 80px;  /* Ajuste la largeur du logo */
+    height: auto; /* Conserve les proportions de l'image */
+}
+
+
+.custom-button {
+    display: inline-flex; 
+	align-items: center;        
+    justify-content: center;
+    background-color: white; 
+    color: #111E2C;  
+    border: 2px solid #111E2C; 
+    padding: 5px 15px;  
+    font-size: 16px;    
+    font-weight: bold;       
+    border-radius: 5px;     
+    text-decoration: none;   
+    cursor: pointer;   
+    margin-left: auto; 
+    margin-right: 100px;  
+}
+
+.custom-button img {
+    width: 25px;   /* Réduit la taille de l'image */
+    height: auto; 
+    margin-right: 8px;  /* Réduit l'espace entre l'image et le texte */
+}
+
+
+header h1 {/* Taille de police ajustée */
+    text-align: left;
+    line-height: 1; 
+    margin-right: 60px;
+	margin-left: 20px;
+	margin-bottom : 40px;
+}
+
+
+/**********************************************************
+                        section principale
+**********************************************************/
+
+/* Wrapper pour chaque paragraphe */
+#paraph {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;  /* Deux colonnes : une pour le texte, l'autre pour l'image */
+    gap: 20px;  /* Espacement entre les colonnes */
+    margin-bottom: 20px;
+	align-items: center;
+}
+
+/* Gérer l'espacement et aligner le texte correctement */
+#paraph > #text {
+    text-align: justify;  /* Aligne le texte sur toute la largeur de la colonne */
+    margin-right: 20px;  /* Ajoute un peu d'espace entre le texte et l'image */
+}
+
+/* Réduire la taille des images à 100% de la colonne pour éviter qu'elles soient trop grandes */
+#paraph img {
+
+    width: 100%;  /* L'image prendra toute la largeur de la colonne, mais sans la dépasser */
+    height: auto;  /* Garde les proportions de l'image */
+    max-width: 300px;  /* Empêche l'image d'être trop grande */
+}
+#text_ocean {
+    display: flex;               /* Utilise Flexbox pour aligner les éléments à l'intérieur */
+    flex-direction: column;      /* Les éléments seront alignés verticalement */
+    justify-content: center;     /* Aligne les éléments verticalement au centre */
+    align-items: center;         /* Aligne les éléments horizontalement au centre */
+    height: 100%;                /* Assure que la section prend toute la hauteur disponible */
+    text-align: left;          /* Centre le texte dans le conteneur */
+    padding: 20px;               /* Ajoute un peu d'espace autour */
+}
+#text_ecologie {
+    display: flex;               /* Utilise Flexbox pour aligner les éléments à l'intérieur */
+    flex-direction: column;      /* Les éléments seront alignés verticalement */
+    justify-content: center;     /* Aligne les éléments verticalement au centre */
+    align-items: center;         /* Aligne les éléments horizontalement au centre */
+    height: 100%;                /* Assure que la section prend toute la hauteur disponible */
+    text-align: left;          /* Centre le texte dans le conteneur */
+    padding: 20px;               /* Ajoute un peu d'espace autour */
+}
+#section {
+	display: inline-flex;
+	align-items: center;        
+    justify-content: center;          /* Assure que chaque bouton est traité comme un bloc */
+    margin: 20px auto;        /* Centre le bouton horizontalement et ajoute de l'espace vertical */
+    text-align: center;       /* Centre le texte du bouton */
+    width: fit-center;       /* Adapte la largeur du bouton au contenu */
+}
+
+
+/**********************************************************
+                        Jeu
+**********************************************************/
+#bonhomme_img {
+	position : relative;
+    width: 100%;
+	height: auto;
+    max-width: none; /* Supprime toute restriction sur la largeur maximale */
+    display: block; /* Évite les espaces indésirables causés par des images inline */
+    margin: 0 auto; /* Centre l'image dans son conteneur si nécessaire */
+}
+
+
+/**********************************************************
+                        Pied de page
+**********************************************************/
+footer {
+	margin: 2em 0 0 0;
+	padding-top: 10px;
+	text-align: center;
+	font-size: 10px;
+	color : white;
+	
+}

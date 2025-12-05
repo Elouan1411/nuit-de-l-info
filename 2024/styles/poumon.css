@@ -1,0 +1,409 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1c1f2f;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    width: 33%;
+    height: 100%;
+    background-color: #2f5075;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.walletBalanceCard {
+    height: 135px;
+    background-color: #1D3249;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 0px 12px;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.icon_score {
+    width: 115px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.balancewrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 240px;
+}
+
+.record {
+    position: relative;
+    font-size: 25px;
+    color: rgb(214, 214, 214);
+    font-weight: 100;
+    letter-spacing: 0.6px;
+    margin-top: 3px;
+}
+
+.balance {
+    font-size: 30px;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin: 0px;
+    padding: 0px;
+    margin-top: 18px;
+}
+
+.scoreCard {
+    position: relative;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#imgicon {
+    height: 75px;
+}
+
+#imgiconoxy {
+    height: 125px;
+}
+
+.oxygenLevel {
+    position: flex;
+    top: 35px;
+    z-index: 1000;
+}
+
+#oxygen {
+    height: 60px;
+    padding: 10px
+}
+
+.oxygentext {
+    font-size: 30px;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.line {
+    position: relative;
+    top: 55px;
+    width: calc(100% - 150px);
+    height: 2px;
+    background-color: transparent;
+}
+
+.character {
+    position: relative;
+    top: -5px;
+    left: 0;
+    width: 150px;
+    height: 150px;
+    background-image: url('../images/poumon/plongeur.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: translateX(-50%);
+    transition: left 0.3s linear;
+}
+
+.moving-algues {
+    position: absolute;
+    bottom: 0;
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    animation: moveUp 2s linear forwards;
+    left: 33%;
+}
+
+.moving-dechet {
+    position: absolute;
+    bottom: 0;
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    animation: moveUp 5s linear forwards;
+    left: 33%;
+}
+
+.moving-animaux {
+    position: absolute;
+    bottom: 0;
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    animation: moveUp 3.5s linear forwards;
+    left: 33%;
+}
+
+@keyframes moveUp {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-110vh);
+    }
+}
+
+.containerpopup {
+    width: 460px;
+    height: 388px;
+}
+
+.terminal_toolbar {
+    display: flex;
+    height: 30px;
+    align-items: center;
+    box-sizing: border-box;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background: linear-gradient(#504b45 0%, #3c3b37 100%);
+}
+
+.butt {
+    display: flex;
+    align-items: center;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin-right: 5px;
+    font-size: 8px;
+    height: 12px;
+    width: 12px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 100%;
+    background: linear-gradient(#7d7871 0%, #595953 100%);
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 0px 1px 0px #41403a, 0px 1px 1px 0px #474642;
+}
+
+.btn-color {
+    background: #ee411a;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.btn:focus {
+    outline: none;
+}
+
+.butt--exit {
+    background: linear-gradient(#f37458 0%, #de4c12 100%);
+}
+
+.user {
+    color: #d5d0ce;
+    margin-left: 6px;
+    font-size: 14px;
+    line-height: 15px;
+}
+
+.terminal_body {
+    background: rgba(56, 4, 40, 0.9);
+    font-family: "Consolas", "Courier New", monospace;
+    height: calc(100% - 30px);
+    margin-top: -1px;
+    font-size: 25px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.terminal_promt {
+    display: flex;
+}
+
+.terminal_promt span {
+    margin-left: 4px;
+}
+
+.terminal_user {
+    color: #7eda28;
+}
+
+.terminal_location {
+    color: #4878c0;
+}
+
+.terminal_bling {
+    color: #dddddd;
+}
+
+.terminal_cursor {
+    display: block;
+    height: 14px;
+    width: 5px;
+    margin-left: 0px;
+    animation: curbl 1200ms linear infinite;
+}
+
+.terminal_text {
+    color: #ffffff;
+
+}
+
+@keyframes curbl {
+    0% {
+        background: #ffffff;
+    }
+
+    49% {
+        background: #ffffff;
+    }
+
+    60% {
+        background: transparent;
+    }
+
+    99% {
+        background: transparent;
+    }
+
+    100% {
+        background: #ffffff;
+    }
+}
+
+.containerWin * {
+    padding: 0;
+    margin: 0;
+}
+
+.card {
+    width: 363px;
+    height: 130px;
+    background-color: #1e293b;
+    border-radius: 10px;
+    display: grid;
+    grid-template-rows: 40px 1fr;
+}
+
+.card .header {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.card .header .title {
+    color: #7dd3fc;
+    font-size: 13px;
+    padding: 2px 12px;
+}
+
+.card .header .copy {
+    position: absolute;
+    background: transparent;
+    border: none;
+    top: 61%;
+    right: 1px;
+    transform: translate(-50%, -50%);
+    color: rgb(100, 116, 139);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.card .header .copy:hover {
+    color: rgb(148, 163, 184);
+}
+
+.card .header::before {
+    content: "";
+    position: absolute;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: 1px solid #64748b4d;
+    right: 1px;
+    bottom: 0;
+    background-color: #33415580;
+    width: 282px;
+    height: 33px;
+    z-index: 100;
+}
+
+.card .header::after {
+    content: "";
+    position: absolute;
+    width: 22%;
+    height: 1px;
+    background-color: #7dd3fc;
+    bottom: 0;
+}
+
+.card .footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    padding-left: 10px;
+}
+
+.card .footer .code {
+    display: flex;
+    align-items: center;
+}
+
+.card .footer .code .icon {
+    color: rgb(244, 114, 182);
+    padding-top: 3px;
+}
+
+.card .footer .code .text {
+    padding-left: 3px;
+    color: #f8fafc;
+}
+
+.lignebouton{
+    position: absolute;
+    top: 35px;
+    left: calc(33% - 550px);
+    z-index: 1000;
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+}
+
+
+#toggleButton {
+	position: relative;
+    top: 150px;
+    left: 25px;
+    height: 80px;
+    width: 80px;
+	background-color: #1D3249;
+	color: white;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	font-size: 16px;
+	z-index: 100000000;
+	transition: all 0.3s ease-in-out;
+}
+
+.div_a{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
